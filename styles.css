@@ -211,12 +211,7 @@ table tr:nth-child(even) {
     .hero {
         height: calc(100vh - 60px);
         padding: 20px;
-         body {
-    font-size: 14px;
-  }
-  .menu {
-    display: none; 
-  }
+
 }
     }
 
