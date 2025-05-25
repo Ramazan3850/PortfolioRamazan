@@ -1,107 +1,84 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Veille Technologique – IA & 5G</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Veille Technologique – 5G</title>
+  <link rel="stylesheet" href="styles.css" />
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      margin: 0;
-      padding: 0;
-      background-color: #f9f9f9;
-      color: #333;
-    }
-    header {
-      background-color: #0b132b;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
     main {
       max-width: 900px;
-      margin: 40px auto;
+      margin: 100px auto 60px;
       padding: 0 20px;
-      background-color: white;
-      border-radius: 10px;
+      background: white;
+      border-radius: 12px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
-    h1, h2, h3 {
-      color: #0b132b;
-    }
     section {
-      margin-bottom: 40px;
+      padding: 30px;
     }
-    img {
-      max-width: 100%;
-      border-radius: 8px;
-      margin: 15px 0;
-    }
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 0.9em;
-      color: #666;
-    }
+      img {
+  display: block;
+  margin: 20px auto;
+  max-width: 40%;
+  border-radius: 8px;
+}
+
   </style>
 </head>
 <body>
-  <header>
-    <h1>Veille Technologique : Intelligence Artificielle & 5G</h1>
-    <p>Réalisée dans le cadre de mon BTS SIO SLAM</p>
+  <header class="navbar">
+    <div class="logo">Ilkhan Ramazan</div>
+    <nav class="menu">
+      <a href="index.html">Accueil</a>
+    </nav>
   </header>
 
   <main>
+
     <section>
-      <h2>🎯 Objectif</h2>
-      <p>
-        Cette veille technologique a pour but de comprendre l'impact de deux grandes innovations – l'Intelligence Artificielle (IA) et la 5G sur les métiers du développement web.
-      </p>
+      <h2> Objectif</h2>
+      <p>Cette veille technologique a pour but d’analyser les usages, les enjeux et les impacts de la 5G dans les métiers du numérique, et notamment dans le développement web. En tant qu'étudiant en BTS SIO SLAM, je m'intéresse à la manière dont cette technologie transforme les performances et les expériences numériques.</p>
     </section>
 
     <section>
-      <h2>🤖 Intelligence Artificielle (IA)</h2>
-      <p>
-        En 2025, l’IA s’intègre directement dans les outils du développeur. Des assistants comme <strong>GitHub Copilot</strong>, <strong>Jules</strong> (Google) ou <strong>Codex</strong> (OpenAI) permettent d’automatiser la génération de code, la correction de bugs et même la création d’interfaces complètes.
-      </p>
-      <p>
-        On parle de <em>“vibe coding”</em> : on décrit une fonctionnalité en langage naturel, l’IA la code. Cela transforme le rôle du développeur en un guide, superviseur ou testeur de l’IA.
-      </p>
-      <img src="ton_image_ia.jpg" alt="Illustration IA">
+      <h2> Qu’est-ce que la 5G ?</h2>
+      <p>La 5G (cinquième génération de réseau mobile) est une évolution des technologies de communication sans fil. Elle permet des débits allant jusqu'à 20 Gbit/s, une latence inférieure à 1 milliseconde, et une densité de connexion bien supérieure à la 4G. Cela permet de connecter simultanément des millions d'appareils avec une grande efficacité énergétique.</p>
+      <img src="image-5g.jpg" alt="Définition de la 5G">
     </section>
 
     <section>
-      <h2>📶 La 5G</h2>
-      <p>
-        La 5G apporte un débit jusqu’à 20 Gbps et une latence réduite à 1 ms. Pour les développeurs web, cela permet de créer des applications plus réactives, accessibles en mobilité, même pour des usages lourds comme :
-      </p>
+      <h2> À quoi sert la 5G ?</h2>
+      <p>La 5G est conçue pour répondre à des besoins variés : véhicules autonomes, réalité augmentée/virtuelle, téléchirurgie, objets connectés, vidéos 4K/8K en streaming, jeux en cloud, smart cities, etc. Elle offre une connectivité ultra-fiable dans des contextes critiques, et joue un rôle fondamental dans l’évolution de l’Internet des Objets (IoT).</p>
+      <img src="image-medecine5g.png" alt="Usages de la 5G">
+    </section>
+
+    <section>
+      <h2> Intérêt de la 5G en développement web</h2>
+      <p>Pour les développeurs web, la 5G permet d’imaginer des expériences plus immersives et réactives. Les Progressive Web Apps peuvent devenir aussi fluides que des applications natives. Le chargement de contenus lourds (vidéos HD, assets 3D, AR) devient instantané. La latence très faible ouvre aussi la voie aux applications web en temps réel (visioconférences, jeux, data live…).</p>
+    </section>
+
+    <section>
+      <h2> Acteurs majeurs dans la mise en place de la 5G</h2>
       <ul>
-        <li>La réalité augmentée (AR)</li>
-        <li>Les Progressive Web Apps (PWA)</li>
-        <li>Le cloud gaming ou la téléconsultation</li>
-      </ul>
-      <img src="ton_image_5g.jpg" alt="Illustration 5G">
-    </section>
-
-    <section>
-      <h2>🔗 Synergie IA + 5G</h2>
-      <p>
-        Ces deux technologies combinées permettent des expériences utilisateur en ligne toujours plus immersives et intelligentes. Par exemple :
-      </p>
-      <ul>
-        <li>Un assistant vocal web fonctionnant en temps réel</li>
-        <li>Une app de traduction live entre deux utilisateurs</li>
-        <li>Une interface AR guidée par IA, utilisable en déplacement</li>
+        <li><strong>Qualcomm</strong> : leader des puces 5G (modems Snapdragon X55/X65).</li>
+        <li><strong>Ericsson</strong> : déploiement d’infrastructures télécoms 5G en Europe et en Asie.</li>
+        <li><strong>Huawei</strong> : acteur technologique majeur (malgré des restrictions en Occident).</li>
+        <li><strong>Nokia</strong> : partenaire de nombreux opérateurs mondiaux pour la 5G.</li>
+        <li><strong>Orange / Bouygues / Free / SFR</strong> : opérateurs français en charge du déploiement national.</li>
       </ul>
     </section>
 
     <section>
-      <h2>📌 Conclusion</h2>
-      <p>
-        En tant que futur développeur web, comprendre l’IA et la 5G me permet d’anticiper les outils, les contraintes et les opportunités de demain. Cela oriente mes choix techniques, mes méthodes de travail et mes projets à venir.
-      </p>
+      <h2> Sources</h2>
+      <ul>
+        <li><a href="https://www.qualcomm.com/5g" target="_blank">Qualcomm – 5G</a></li>
+        <li><a href="https://www.ericsson.com/en/5g" target="_blank">Ericsson – qu'est ce que la 5G ?</a></li>
+        <li><a href="https://www.arcep.fr/" target="_blank">ARCEP – Suivi du déploiement 5G en France</a></li>
+        <li><a href="https://fr.wikipedia.org/wiki/5G" target="_blank">Wikipedia - 5G</a></li>
+      </ul>
     </section>
+
   </main>
 
   <footer>
