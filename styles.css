@@ -92,7 +92,34 @@ html, body {
   
   .hero-btn-wrapper {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+  }
+  
+  .hero-subbuttons {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-start;
+    margin-top: 5px;
+    margin-left: 70px; 
+  }
+  
+  
+  .cta-subbutton {
+    padding: 20px 40px;
+    background: var(--primary);
+    border: none;
+    color: white;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+  
+  .cta-subbutton:hover {
+    background: #13b08b;
+    transform: scale(1.05);
   }
   
   .cta-button {
@@ -110,14 +137,12 @@ html, body {
     background-color: #13b08b;
   }  
   
-  /* Main */
   main {
     max-width: 1000px;
     margin: 120px auto 60px;
     padding: 0 20px;
   }
   
-  /* Sections */
   section {
     margin-bottom: 60px;
     background: var(--light);
@@ -153,7 +178,6 @@ html, body {
     color: var(--primary);
   }
   
-  /* Skills */
   .skills-container {
     display: flex;
     justify-content: center;
@@ -181,19 +205,80 @@ html, body {
     background: var(--primary);
   }
   
+  .skill-box#soft-btn:hover {
+    background: linear-gradient(to bottom right, #1d3557, #457b9d);
+    color: white;
+  }
+  
+  .skills-display {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
   .skills-list {
     display: none;
     opacity: 0;
-    transform: translateY(10px);
     transition: all 0.4s ease;
-    text-align: left;
+    max-width: 800px;
+    width: 100%;
+    justify-content: center;
+    gap: 15px;
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
   }
   
   .skills-list.active {
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     opacity: 1;
-    transform: translateY(0);
   }
+  
+  .skills-list li {
+    background-color: var(--dark);
+    color: white;
+    border-radius: 12px;
+    padding: 15px 20px;
+    font-weight: bold;
+    font-size: 1rem;
+    margin: 10px;
+    text-align: center;
+    transition: transform 0.3s ease, background 0.3s ease;
+    min-width: 130px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .skills-list li:hover {
+    transform: scale(1.05);
+    background-color: var(--primary);
+    color: white;
+  }
+  
+  .skills-list li::marker {
+    display: none;
+  }
+  
+  .skills-list li::before {
+    content: none !important;
+  }
+  
+  .soft-skills li {
+    background-color: var(--dark);
+    border: 2px solid var(--dark);
+    color: white;
+    transition: 0.3s ease;
+  }
+  
+  .soft-skills li:hover {
+    background-color: #457b9d;
+    border-color: #457b9d;
+    color: white;
+  }
+  
+    
   
   footer {
     text-align: center;

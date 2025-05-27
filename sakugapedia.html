@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sakugapedia</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root {
+      --primary: #457b9d;
+      --dark: #1d3557;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4faff;
+      color: #333;
+      padding: 40px;
+      margin: 0;
+    }
+
+    .avatar {
+      width: 50%;
+      max-width: 200px;
+      height: auto;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      border-radius: 15px;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+      display: block;
+      margin: 0 auto 15px auto;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.8rem;
+      margin-bottom: 40px;
+      color: var(--dark);
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .actions, .filters {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 25px;
+    }
+
+    select, input[type="text"], button {
+      padding: 10px;
+      border: 2px solid var(--primary);
+      border-radius: 8px;
+      font-size: 1rem;
+      background: white;
+      color: var(--dark);
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      padding-top: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      border-left: 6px solid var(--primary);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      color: var(--dark);
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 6px;
+      margin-bottom: 12px;
+    }
+
+    .card table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .card td {
+      padding: 6px 0;
+      border-bottom: 1px dashed #ccc;
+    }
+
+    .card td:first-child {
+      font-weight: bold;
+      color: var(--dark);
+      width: 35%;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 700px;
+      width: 90%;
+      position: relative;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 28px;
+      cursor: pointer;
+      color: var(--dark);
+    }
+  </style>
+</head>
+<body>
+  <h1>Sakugapedia</h1>
+
+  <div class="actions">
+    <button id="sort-alpha">Trier par nom (A-Z)</button>
+  </div>
+
+  <div class="filters">
+    <label for="origine">Origine :</label>
+    <select id="origine">
+      <option value="">Toutes</option>
+      <option value="Américain">Américain</option>
+      <option value="Chinois">Chinois</option>
+      <option value="Français">Français</option>
+      <option value="Japonais">Japonais</option>
+      <option value="Taiwanais">Taiwanais</option>
+    </select>
+
+    <label for="style">Style :</label>
+    <select id="style">
+      <option value="">Tous</option>
+      <option value="Action">Action</option>
+      <option value="Acting">Acting</option>
+      <option value="Effets">Effets</option>
+      <option value="Impact frames">Impact frames</option>
+    </select>
+  </div>
+
+  <div class="grid" id="result"></div>
+
+  <div id="video-modal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <iframe id="video-frame" width="100%" height="400" frameborder="0" allowfullscreen></iframe>
+    <p id="video-source" style="text-align: center; font-size: 0.9rem; color: #555;"></p>
+</p>
+</div>
+
+
+  <script>
+    const animateurs = [
+    {
+        nom: "Yoh Yoshinari (吉成曜)",
+        origine: "Japonais",
+        style: "Effets",
+        travaux: "Evangelion, Kill la Kill",
+        bio: "Animateur légendaire ayant beaucoup travaillé avec le studio Gainax et est reconnu pour ses déformations stylisées, son animation de méchas.",
+        naissance: "1971-05-06",
+        image: "Yo-yoshi.png",
+        video: "yoshinari-video.mp4"
+
+      },
+      {
+        nom: "Shingo Yamashita (山下清悟)",
+        origine: "Japonais",
+        style: "Action",
+        travaux: "Jujutsu Kaisen Openings, Naruto Shippuden",
+        bio: "Réalisateur d'openings réputé pour son animation dynamique et sa maîtrise des effets visuels. Excelle aussi dans plusieurs postes de production comme la photographie et la 3D.",
+        naissance: "1987-07-28",
+        image: "shingoyama.png",
+        video: "shingo-yama.mp4"
+      },
+      {
+        nom: "Vincent Chansard",
+        origine: "Français",
+        style: "Impact frames",
+        travaux: "One Piece, Jujutsu Kaisen, Fate series",
+        bio: "L'animateur français le plus populaire de cette génération, spécialisé dans les scènes de combats et un grand talent sur les impact frames.",
+        naissance: "1993",
+        image: "vincent-goat.png",
+        video: "vincent-video.mp4"
+      },
+      {
+        nom: "Chengxi Huang (黄成希)",
+        origine: "Chinois",
+        style: "Action",
+        travaux: "Naruto Shippuden, Boruto",
+        bio: "Animateur chinois très respecté et reconnu pour ses travaux dans la franchise Naruto, connu comme étant l'élève de Hiroyuki Yamashita.",
+        naissance: "1989-07-17",
+        image: "chengxi-huang.png",
+        video: "huang-videos.mp4"
+      },
+      {
+        nom: "Hakuyu Go (伍柏諭)",
+        origine: "Taiwanais",
+        style: "Action",
+        travaux: "Fate series, Mob Psycho",
+        bio: "Animateur et réalisateur d'épisodes Taiwanais excellant dans le domaine de l'action, disposant d'un style de dessins rafraichissant et démarquant.",
+        naissance: "1992",
+        image: "pdp-Go.png",
+        video: "hakuyu-cinema.mp4"
+      },
+      {
+        nom: "Samuel Deats",
+        origine: "Américain",
+        style: "Action",
+        travaux: "Castlevania series",
+        bio: "Animateur et réalisateur avec un gros niveau en dessin connu sur la série Netflix Castlevania, où il y travaille avec son frère Adam Deats.",
+        naissance: "1984-10-24",
+        image: "Samuel_Deats.jpg",
+        video: "samuel-video.mp4"
+      }
+    ];
+
+    const result = document.getElementById("result");
+    const origineSelect = document.getElementById("origine");
+    const styleSelect = document.getElementById("style");
+
+    function renderCards() {
+      const origine = origineSelect.value;
+      const style = styleSelect.value;
+      result.innerHTML = "";
+      animateurs
+        .filter(a => (!origine || a.origine === origine) && (!style || a.style === style))
+        .forEach(anim => {
+          const card = document.createElement("div");
+          card.className = "card";
+
+          let birthInfo = "";
+          if (anim.naissance) {
+            const currentYear = new Date().getFullYear();
+            if (typeof anim.naissance === "number") {
+              birthInfo = `Âge estimé : ${anim.naissance} ans`;
+            } else if (/^\d{4}$/.test(anim.naissance)) {
+              const age = currentYear - parseInt(anim.naissance);
+              birthInfo = `Année : ${anim.naissance} (${age} ans)`;
+            } else if (/^\d{4}-\d{2}-\d{2}$/.test(anim.naissance)) {
+              const birthDate = new Date(anim.naissance);
+              if (!isNaN(birthDate)) {
+                const today = new Date();
+                let age = today.getFullYear() - birthDate.getFullYear();
+                const m = today.getMonth() - birthDate.getMonth();
+                if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                  age--;
+                }
+                const options = { day: '2-digit', month: 'long', year: 'numeric' };
+                const formattedDate = birthDate.toLocaleDateString('fr-FR', options);
+                birthInfo = `${formattedDate} (${age} ans)`;
+              }
+            }
+          }
+
+          card.innerHTML = `
+            <img src="${anim.image}" alt="${anim.nom}" class="avatar">
+            <h3>${anim.nom}</h3>
+            <table>
+              <tr><td>Origine :</td><td>${anim.origine}</td></tr>
+              <tr><td>Style :</td><td>${anim.style}</td></tr>
+              ${birthInfo ? `<tr><td>Date de naissance :</td><td>${birthInfo}</td></tr>` : ""}
+              <tr><td>Travaux :</td><td>${anim.travaux}</td></tr>
+              <tr><td>Biographie :</td><td>${anim.bio}</td></tr>
+            </table>
+          `;
+
+          if (anim.video) {
+            card.addEventListener("click", () => {
+              const modal = document.getElementById("video-modal");
+              const frame = document.getElementById("video-frame");
+              frame.src = anim.video;
+              modal.style.display = "flex";
+              const sourceText = document.getElementById("video-source");
+
+if (anim.nom.includes("Yoh Yoshinari")) {
+  sourceText.innerHTML = `
+    <a href="https://www.sakugabooru.com/post/show/121037" target="_blank">
+      Voir sur Sakugabooru
+    </a><br>
+    Episode 26 (BD) de Neon Genesis Evangelion.
+  `;
+} else if (anim.nom.includes("Vincent Chansard")) {
+  sourceText.innerHTML = `
+    <a href="https://sakugabooru.com/post/show/230826" target="_blank">
+      Voir sur Sakugabooru
+    </a><br>
+    Episode 217 de Boruto: Naruto next generations
+  `;
+} else if (anim.nom.includes("Shingo Yamashita")) {
+  sourceText.innerHTML = `
+    <a href="https://sakugabooru.com/post/show/175388" target="_blank">
+      Voir sur Sakugabooru
+    </a><br>
+    Opening 6 de Naruto Shippuden
+  `;
+} else if (anim.nom.includes("Chengxi Huang")) {
+  sourceText.innerHTML = `
+    <a href="https://sakugabooru.com/post/show/213254" target="_blank">
+      Voir sur Sakugabooru
+    </a><br>
+    Opening 2 de Sword Art Online Alicization
+  `;
+} else if (anim.nom.includes("Hakuyu Go")) {
+  sourceText.innerHTML = `
+    <a href="https://sakugabooru.com/post/show/175083" target="_blank">
+      Voir sur Sakugabooru
+    </a><br>
+    Séquence issue du film Fate/Grand Order Camelot Paladin Agateram
+  `;
+} else if (anim.nom.includes("Samuel Deats")) {
+  sourceText.innerHTML = `
+    <a href="https://sakugabooru.com/post/show/274328" target="_blank">
+      Voir sur Sakugabooru
+    </a><br>
+    Episode 8 de Castlevania: Nocturne 2
+
+  `;
+} else {
+  sourceText.innerHTML = '';
+}
+
+            });
+          }
+
+          result.appendChild(card);
+        });
+    }
+
+    document.querySelector(".close").addEventListener("click", () => {
+      document.getElementById("video-modal").style.display = "none";
+      document.getElementById("video-frame").src = "";
+      document.getElementById("video-source").innerHTML = '';
+    });
+
+    origineSelect.addEventListener("change", renderCards);
+    styleSelect.addEventListener("change", renderCards);
+    document.getElementById("sort-alpha").addEventListener("click", () => {
+      animateurs.sort((a, b) => a.nom.localeCompare(b.nom));
+      renderCards();
+    });
+
+    renderCards();
+  </script>
+</body>
+</html>
